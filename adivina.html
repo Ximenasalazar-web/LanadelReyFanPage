@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="../pages/ccae20ffdd91fa817b26450696d37eaf.jpg" type="image/jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adivina la Canción — Lana Del Rey</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-logo">Lana Del Rey</div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="adivina.html" class="active">Adivina la Canción</a></li>
+      <li><a href="favorita.html">Tu Canción Favorita</a></li>
+      <li><a href="discografia.html">Discografía</a></li>
+    </ul>
+  </nav>
+
+  <!-- JUEGO -->
+  <div class="page-wrapper">
+    <div class="page-bg"></div>
+    <div class="page-content">
+      <div class="game-box">
+
+        <h1 class="game-title">🎵 Adivina la Canción</h1>
+        <p class="game-score" id="scoreDisplay">Puntos: 0 / 10</p>
+
+        <!-- Letra mostrada -->
+        <div class="lyric-display" id="lyricDisplay">
+          Cargando letra...
+        </div>
+
+        <!-- Opciones -->
+        <div class="options-grid" id="optionsGrid">
+          <!-- generado por JS -->
+        </div>
+
+        <!-- Feedback -->
+        <p class="feedback-msg" id="feedbackMsg"></p>
+
+        <!-- Botón siguiente -->
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" style="display:none;">
+          Siguiente →
+        </button>
+
+        <!-- Pantalla de resultado final -->
+        <div id="resultScreen" style="display:none; text-align:center;">
+          <p style="font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:16px; color:var(--pink-soft);">
+            ✨ Juego terminado ✨
+          </p>
+          <p id="finalScore" style="font-size:1.1rem; color:var(--ice); margin-bottom:24px;"></p>
+          <button class="next-btn" onclick="restartGame()">Jugar de nuevo 🌙</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── BASE DE PREGUNTAS ──
+    const questions = [
+      {
+        lyric: '"Feet don\'t fail me now..."',
+        answer: "West Coast",
+        options: ["Born to Die", "National Anthem", "West Coast"]
+      },
+      {
+        lyric: '"I was always an unusual girl, my mother told me I had a chameleon soul..."',
+        answer: "Ride",
+        options: ["Ride", "Summertime Sadness", "Young and Beautiful"]
+      },
+      {
+        lyric: '"Will you still love me when I\'m no longer young and beautiful?"',
+        answer: "Young and Beautiful",
+        options: ["Video Games", "Young and Beautiful", "Lust for Life"]
+      },
+      {
+        lyric: '"He\'s my sun, he makes me shine like diamonds..."',
+        answer: "Shades of Cool",
+        options: ["Shades of Cool", "Blue Jeans", "Cola"]
+      },
+      {
+        lyric: '"I\'ve been tearing around in my fucking nightgown..."',
+        answer: "Chemtrails Over the Country Club",
+        options: ["Hope is a Dangerous Thing", "Chemtrails Over the Country Club", "Let Me Love You Like a Woman"]
+      },
+      {
+        lyric: '"Don\'t make me sad, don\'t make me cry..."',
+        answer: "Born to Die",
+        options: ["Born to Die", "Dark Paradise", "Ride"]
+      },
+      {
+        lyric: '"Swaying to the beat, skipping down the street..."',
+        answer: "National Anthem",
+        options: ["Summertime Sadness", "National Anthem", "Video Games"]
+      },
+      {
+        lyric: '"It\'s you, it\'s you, it\'s all for you, everything I do..."',
+        answer: "Video Games",
+        options: ["Video Games", "Lolita", "Cruel World"]
+      },
+      {
+        lyric: '"I\'m feeling electric tonight..."',
+        answer: "Summertime Sadness",
+        options: ["Off to the Races", "Summertime Sadness", "Carmen"]
+      },
+      {
+        lyric: '"We could get lost in the night, underneath the midnight sky..."',
+        answer: "Lust for Life",
+        options: ["Love", "Lust for Life", "13 Beaches"]
+      }
+    ];
+
+    // ── ESTADO DEL JUEGO ──
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+    let shuffled = [];
+
+    function shuffle(arr) {
+      return [...arr].sort(() => Math.random() - 0.5);
+    }
+
+    function startGame() {
+      shuffled = shuffle(questions);
+      currentIndex = 0;
+      score = 0;
+      answered = false;
+      document.getElementById('resultScreen').style.display = 'none';
+      document.getElementById('optionsGrid').style.display = 'flex';
+      document.getElementById('lyricDisplay').style.display = 'block';
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = shuffled[currentIndex];
+      answered = false;
+
+      document.getElementById('lyricDisplay').textContent = q.lyric;
+      document.getElementById('feedbackMsg').textContent = '';
+      document.getElementById('nextBtn').style.display = 'none';
+      document.getElementById('scoreDisplay').textContent =
+        `Puntos: ${score} / ${shuffled.length}`;
+
+      const grid = document.getElementById('optionsGrid');
+      grid.innerHTML = '';
+
+      const opts = shuffle(q.options);
+      opts.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(opt, q.answer);
+        grid.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected, correct) {
+      if (answered) return;
+      answered = true;
+
+      const buttons = document.querySelectorAll('.option-btn');
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === correct) btn.classList.add('correct');
+        else if (btn.textContent === selected) btn.classList.add('wrong');
+      });
+
+      const feedback = document.getElementById('feedbackMsg');
+      if (selected === correct) {
+        score++;
+        feedback.textContent = '✓ ¡Correcto! 🌙';
+        feedback.style.color = '#a8f0b0';
+      } else {
+        feedback.textContent = `✗ Era: "${correct}"`;
+        feedback.style.color = 'rgba(255,120,120,0.9)';
+      }
+
+      document.getElementById('scoreDisplay').textContent =
+        `Puntos: ${score} / ${shuffled.length}`;
+      document.getElementById('nextBtn').style.display = 'block';
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      if (currentIndex >= shuffled.length) {
+        showResult();
+      } else {
+        showQuestion();
+      }
+    }
+
+    function showResult() {
+      document.getElementById('optionsGrid').style.display = 'none';
+      document.getElementById('lyricDisplay').style.display = 'none';
+      document.getElementById('nextBtn').style.display = 'none';
+      document.getElementById('feedbackMsg').textContent = '';
+
+      const msgs = {
+        10: "¡Eres una Lana del Rey expert! 🌹",
+        8:  "¡Casi perfecto! Conoces muy bien a Lana 🌙",
+        6:  "¡Buen puntaje! Sigue escuchando ✨",
+        4:  "Falta escuchar más... pero vas bien 🎵",
+        0:  "¡Descubre la magia de Lana Del Rey! 🌺"
+      };
+
+      const key = score >= 10 ? 10 : score >= 8 ? 8 : score >= 6 ? 6 : score >= 4 ? 4 : 0;
+      document.getElementById('finalScore').textContent =
+        `${score} / ${shuffled.length} — ${msgs[key]}`;
+      document.getElementById('resultScreen').style.display = 'block';
+    }
+
+    function restartGame() { startGame(); }
+
+    // ── INICIAR ──
+    document.addEventListener('DOMContentLoaded', startGame);
+  </script>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

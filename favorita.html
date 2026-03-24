@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="../pages/ccae20ffdd91fa817b26450696d37eaf.jpg" type="logo">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tu Canción Favorita — Lana Del Rey</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-logo">Lana Del Rey</div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="adivina.html">Adivina la Canción</a></li>
+      <li><a href="favorita.html" class="active">Tu Canción Favorita</a></li>
+      <li><a href="discografia.html">Discografía</a></li>
+    </ul>
+  </nav>
+
+  <!-- FORMULARIO -->
+  <div class="page-wrapper">
+    <div class="page-bg"></div>
+    <div class="page-content">
+      <div class="form-box">
+
+        <h1 class="form-title">Tu Canción Favorita</h1>
+        <p class="form-subtitle">Cuéntanos sobre tu universo de Lana 🌙✨</p>
+
+        <!-- Nombre -->
+        <div class="form-group">
+          <label for="nombre">Tu nombre</label>
+          <input type="text" id="nombre" placeholder="¿Cómo te llamas?" />
+        </div>
+
+        <!-- Canción favorita -->
+        <div class="form-group">
+          <label for="cancion">Canción favorita</label>
+          <input type="text" id="cancion" placeholder="Nombre de la canción" />
+        </div>
+
+        <!-- Por qué -->
+        <div class="form-group">
+          <label for="porqué">¿Por qué te gusta?</label>
+          <textarea id="porqué" placeholder="Cuéntanos más..."></textarea>
+        </div>
+
+        <!-- Álbum favorito -->
+        <div class="form-group">
+          <label for="album">Álbum favorito</label>
+          <select id="album">
+            <option value="">Selecciona uno</option>
+            <option>Born to Die (2012)</option>
+            <option>Paradise EP (2012)</option>
+            <option>Ultraviolence (2014)</option>
+            <option>Honeymoon (2015)</option>
+            <option>Lust for Life (2017)</option>
+            <option>Norman Fucking Rockwell! (2019)</option>
+            <option>Chemtrails Over the Country Club (2021)</option>
+            <option>Blue Banisters (2021)</option>
+            <option>Did You Know That There's a Tunnel Under Ocean Blvd (2023)</option>
+            <option>Lasso (2025)</option>
+          </select>
+        </div>
+
+        <!-- Top 3 -->
+        <div class="form-group">
+          <label for="top3">Top 3 canciones</label>
+          <input type="text" id="top3" placeholder="Ej: Video Games, Ride, West Coast" />
+        </div>
+
+        <!-- Cómo la encontraste -->
+        <div class="form-group">
+          <label for="como">¿Cómo conociste a Lana?</label>
+          <select id="como">
+            <option value="">Selecciona una opción</option>
+            <option>Un amigo me la recomendó</option>
+            <option>La escuché en una película / serie</option>
+            <option>TikTok / Redes sociales</option>
+            <option>Spotify / YouTube</option>
+            <option>Llevo años siguiéndola</option>
+            <option>Otro</option>
+          </select>
+        </div>
+
+        <!-- Botón enviar -->
+        <button class="submit-btn" onclick="enviarFormulario()">
+          Enviar 💗
+        </button>
+
+        <!-- Mensaje de éxito -->
+        <div class="success-msg" id="successMsg">
+          ✨ ¡Gracias por compartir tu universo Lana! 🌙
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function enviarFormulario() {
+      const nombre = document.getElementById('nombre').value.trim();
+      const cancion = document.getElementById('cancion').value.trim();
+
+      if (!nombre || !cancion) {
+        alert('Por favor ingresa al menos tu nombre y tu canción favorita 🌙');
+        return;
+      }
+
+      // Guardar en localStorage
+      const data = {
+        nombre,
+        cancion,
+        porque: document.getElementById('porqué').value,
+        album:  document.getElementById('album').value,
+        top3:   document.getElementById('top3').value,
+        como:   document.getElementById('como').value,
+        fecha:  new Date().toLocaleDateString('es-CO')
+      };
+
+      const respuestas = JSON.parse(localStorage.getItem('lanaRespuestas') || '[]');
+      respuestas.push(data);
+      localStorage.setItem('lanaRespuestas', JSON.stringify(respuestas));
+
+      // Mostrar mensaje de éxito
+      document.getElementById('successMsg').style.display = 'block';
+
+      // Limpiar formulario
+      ['nombre','cancion','porqué','album','top3','como'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el.tagName === 'SELECT') el.selectedIndex = 0;
+        else el.value = '';
+      });
+
+      setTimeout(() => {
+        document.getElementById('successMsg').style.display = 'none';
+      }, 4000);
+    }
+  </script>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
