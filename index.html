@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="pages/ccae20ffdd91fa817b26450696d37eaf.jpg" type="logo">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lana Del Rey — LANA DEL REY</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar">
+    <div class="nav-logo">Lana Del Rey</div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="pages/adivina.html">Adivina la Canción</a></li>
+      <li><a href="pages/favorita.html">Tu Canción Favorita</a></li>
+      <li><a href="pages/discografia.html">Discografía</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="home">
+    <div class="hero-bg"></div>
+
+    <!-- Silueta edificio SVG -->
+    <svg class="hero-building" viewBox="0 0 300 500" xmlns="http://www.w3.org/2000/svg">
+      <rect x="100" y="300" width="100" height="200" fill="currentColor"/>
+      <rect x="80"  y="240" width="140" height="80"  fill="currentColor"/>
+      <rect x="110" y="180" width="80"  height="80"  fill="currentColor"/>
+      <rect x="90"  y="120" width="120" height="80"  fill="currentColor"/>
+      <rect x="115" y="60"  width="70"  height="80"  fill="currentColor"/>
+      <rect x="130" y="20"  width="40"  height="60"  fill="currentColor"/>
+      <!-- ventanas -->
+      <rect x="115" y="310" width="15" height="20" fill="rgba(255,110,180,0.4)"/>
+      <rect x="140" y="310" width="15" height="20" fill="rgba(255,110,180,0.4)"/>
+      <rect x="165" y="310" width="15" height="20" fill="rgba(168,212,220,0.4)"/>
+      <rect x="115" y="345" width="15" height="20" fill="rgba(168,212,220,0.3)"/>
+      <rect x="165" y="345" width="15" height="20" fill="rgba(255,110,180,0.3)"/>
+    </svg>
+
+    <div class="hero-content">
+      <div class="credential-bar">
+        <span>Music</span>
+        <span>Art</span>
+        <span>Love</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="word-solid">LANA DEL</span><span class="word-outline">REY</span>
+      </h1>
+      <p class="hero-script">Heaven is a place on earth with you</p>
+      <p class="hero-label">✦ Lana Del Rey es literalmente la main character energy: nostalgia, drama bonito y esa vibra de romance trágico pero con gloss ✦</p>
+
+      <!-- Video -->
+      <div class="video-wrapper">
+        <div class="video-label">▶ Playing</div>
+        <video
+        src="pages/Lana Del Rey Playlist - Hauntingly beautiful and dreamy aesthetic.mp4"
+        controls
+        autoplay
+        muted
+        loop>
+        </video>
+      </div>
+
+      <!-- Cards de acceso rápido -->
+      <div class="cards-row">
+        <a href="pages/adivina.html" class="card card-game">
+          <div class="card-icon">🎵</div>
+          <div class="card-title">Adivina la Canción</div>
+          <div class="card-desc">¿Conoces la letra?</div>
+          <div class="card-btn">Jugar →</div>
+        </a>
+        <a href="pages/favorita.html" class="card card-form">
+          <div class="card-icon">🌙</div>
+          <div class="card-title">Tu Canción Favorita</div>
+          <div class="card-desc">Cuéntanos sobre tu universo</div>
+          <div class="card-btn">Enviar →</div>
+        </a>
+        <a href="pages/discografia.html" class="card card-disco">
+          <div class="card-icon">✨</div>
+          <div class="card-title">Discografía</div>
+          <div class="card-desc">Todos sus álbumes</div>
+          <div class="card-btn">Explorar →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <p class="footer-text">✦ XIMENA SALAZAR ✦</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
